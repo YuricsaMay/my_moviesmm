@@ -14,9 +14,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import com.example.mymoviesmariamay.ui.theme.MyMoviesMariaMayTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,7 +64,9 @@ fun MediaItem(){
                 .background(MaterialTheme.colors.secondary)
                 .padding(16.dp)
         ){
-            Text("Title 1")
+            Text(text="Title 1",
+                style=MaterialTheme.typography.h6
+            )
         }
 
     }
@@ -73,14 +84,33 @@ fun ButtonText(){
     Box(modifier=Modifier.fillMaxSize(),
     contentAlignment= Alignment.Center
     ){
-        Text("Hello world",
-        modifier=Modifier
-            .clickable{/*TODO*/}
-            .background(Color.Cyan)
-            .border(width=2.dp,color=Color.Blue)
-            .padding(horizontal=16.dp,vertical=8.dp)
-
-
+        Text(
+            text= "Hello World",
+            //NUMERO DE LINEAS DEFINIDOS
+            //maxLines=1,
+            //el softwrap hace un recorte del texto para que no salga a medias
+            //softWrap= false,
+            //overflow= TextOverflow.Ellipsis,
+            style= MaterialTheme.typography.h4.copy(
+                shadow= Shadow(
+                    offset= Offset(5f,5f),
+                    blurRadius=5f,
+                    color=Color.Black.copy(alpha=0.5f)
+                )
+            )
+            //textAlign= TextAlign.Right
+            //lineHeight=2.em
+            //em la altura de una letra
+            //Parametros que se pueden modificar el text
+            //color=Color.Red
+            //fontSize=25.sp
+            //fontStyle= FontStyle.Italic
+        //letra negrita
+       // fontWeight=FontWeight.ExtraBold
+        //fontFamily =FontFamily.Monospace
+        //letterSpacing=5.sp
+        //decoración
+       // textDecoration = TextDecoration.LineThrough
         )
     }
 
