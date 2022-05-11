@@ -3,30 +3,31 @@ package com.example.mymoviesmariamay
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayCircleOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.mymoviesmariamay.ui.theme.MyMoviesMariaMayTheme
+import com.example.mymoviesmariamay.MediaItem.*
+import androidx.compose.foundation.lazy.items
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,24 +39,64 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ButtonText()
+                    MediaList()
                 }
             }
         }
     }
 }
-@Preview(showBackground = true)
+@ExperimentalCoilApi
+@Preview
 @Composable
-fun MediaItem(){
+fun MediaList(){
+    //lista Horizontal pelis
+    LazyRow(
+        contentPadding=PaddingValues(4.dp),
+        horizontalArrangement= Arrangement.spacedBy(4.dp)
+    ){
+        items(getMedia()) {item ->
+            MediaListItem(item)
+        }
+    }
+}
+@ExperimentalCoilApi
+//@Preview(showBackground = true)
+@Composable
+fun MediaListItem(item: MediaItem){
     Column{
-        //en este box iran las dos imagenes
+    //(
+        //para una fila,como peliculas
+       // modifier=Modifier.width(200.dp)
+    //){
+                //en este box iran las dos imagenes
         Box(
             modifier= Modifier
                 .height(200.dp)
-                .fillMaxWidth()
-                .background(color = Color.Red)
+                .fillMaxWidth(),
+            contentAlignment= Alignment.Center
+                //.background(color = Color.Red)
         ){
+        Image(
+            painter=rememberImagePainter(
+                data=item.thumb
+            //builder={
+                //transformations(BlurTransformation(LocalContext.current))
+            //crossfade(true)
 
+        ),
+            contentDescription= null,
+            modifier=Modifier.fillMaxSize(),
+            contentScale= ContentScale.Crop
+        )
+            if(item.type == Type.VIDEO) {
+                Icon(
+                    imageVector = Icons.Default.PlayCircleOutline,
+                    contentDescription = null,
+                    modifier = Modifier.size(92.dp).align(Alignment.Center),
+                    tint = Color.White
+                )
+                //Icon(painter=painterResource(id=R.drawable.ic_launcher_foreground))
+            }
         }
         Box(
             contentAlignment=Alignment.Center,
@@ -64,8 +105,9 @@ fun MediaItem(){
                 .background(MaterialTheme.colors.secondary)
                 .padding(16.dp)
         ){
-            Text(text="Title 1",
+            Text(text=item.title,
                 style=MaterialTheme.typography.h6
+
             )
         }
 
