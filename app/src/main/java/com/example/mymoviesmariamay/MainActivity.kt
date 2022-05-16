@@ -3,11 +3,11 @@ package com.example.mymoviesmariamay
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -27,9 +27,9 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.mymoviesmariamay.ui.theme.MyMoviesMariaMayTheme
 import com.example.mymoviesmariamay.MediaItem.*
-import androidx.compose.foundation.lazy.items
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,25 +45,35 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-@ExperimentalCoilApi
 @Preview
+@Composable
+fun (){
+
+}
+@ExperimentalFoundationApi
+@ExperimentalCoilApi
+//@Preview
 @Composable
 fun MediaList(){
     //lista Horizontal pelis
-    LazyRow(
-        contentPadding=PaddingValues(4.dp),
-        horizontalArrangement= Arrangement.spacedBy(4.dp)
+    LazyVerticalGrid(
+        contentPadding=PaddingValues(2.dp),
+        cells= GridCells.Adaptive(150.dp)
+        //cells= GridCells.Fixed(2)
     ){
         items(getMedia()) {item ->
-            MediaListItem(item)
+            MediaListItem(item, Modifier.padding(2.dp))
         }
     }
 }
 @ExperimentalCoilApi
 //@Preview(showBackground = true)
 @Composable
-fun MediaListItem(item: MediaItem){
-    Column{
+fun MediaListItem(item: MediaItem, modifier:Modifier = Modifier){
+    Column(
+        modifier=modifier
+    ){
+
     //(
         //para una fila,como peliculas
        // modifier=Modifier.width(200.dp)
@@ -73,7 +83,7 @@ fun MediaListItem(item: MediaItem){
             modifier= Modifier
                 .height(200.dp)
                 .fillMaxWidth(),
-            contentAlignment= Alignment.Center
+           // contentAlignment= Alignment.Center
                 //.background(color = Color.Red)
         ){
         Image(
