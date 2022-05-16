@@ -40,18 +40,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    StateSample()
+                    val (value,onValueChange)= rememberSaveable{ mutableStateOf("")}
+                    StateSample(
+                        value= value,
+                        onValueChange= onValueChange
+                    )
                 }
             }
         }
     }
 }
 //sirve para centrar el layout en la pantalla
-@Preview(showBackground = true, widthDp = 400, heightDp = 400)
+//@Preview(showBackground = true, widthDp = 400, heightDp = 400)
 @Composable
-fun StateSample(){
+fun StateSample(value:String, onValueChange:(String) -> Unit){
     //remembersaveable salva el estado en las rotaciones
-    var text by rememberSaveable{ mutableStateOf("")}
     Column(
       modifier=Modifier
           .fillMaxSize()
@@ -59,21 +62,21 @@ fun StateSample(){
         verticalArrangement = Arrangement.Center
     ){
         TextField(
-            value=text,
-            onValueChange={ text= it},
+            value=value,
+            onValueChange={ onValueChange(it)},
             modifier=Modifier.fillMaxWidth()
         )
         Text(
-            text=text,
+            text=value,
             modifier=Modifier
                 .fillMaxWidth()
                 .background(Color.Yellow)
                 .padding(8.dp)
         )
         Button(
-            onClick = { text="" },
+            onClick = { onValueChange("")},
             modifier=Modifier.fillMaxWidth(),
-            enabled=text.isNotEmpty()
+            enabled=value.isNotEmpty()
             ){
             Text(text = "Clear")
         }
