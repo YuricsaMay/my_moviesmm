@@ -8,19 +8,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleOutline
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
@@ -39,16 +40,44 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MediaList()
+                    StateSample()
                 }
             }
         }
     }
 }
-@Preview
+//sirve para centrar el layout en la pantalla
+@Preview(showBackground = true, widthDp = 400, heightDp = 400)
 @Composable
-fun (){
-
+fun StateSample(){
+    //remembersaveable salva el estado en las rotaciones
+    var text by rememberSaveable{ mutableStateOf("")}
+    Column(
+      modifier=Modifier
+          .fillMaxSize()
+          .padding(64.dp),
+        verticalArrangement = Arrangement.Center
+    ){
+        TextField(
+            value=text,
+            onValueChange={ text= it},
+            modifier=Modifier.fillMaxWidth()
+        )
+        Text(
+            text=text,
+            modifier=Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow)
+                .padding(8.dp)
+        )
+        Button(
+            onClick = { text="" },
+            modifier=Modifier.fillMaxWidth(),
+            enabled=text.isNotEmpty()
+            ){
+            Text(text = "Clear")
+        }
+    }
 }
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
