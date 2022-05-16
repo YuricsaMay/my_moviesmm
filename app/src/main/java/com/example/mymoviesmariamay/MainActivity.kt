@@ -32,51 +32,18 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.mymoviesmariamay.ui.theme.MyMoviesMariaMayTheme
 import com.example.mymoviesmariamay.MediaItem.*
+import com.example.mymoviesmariamay.ui.MainAppBar
+import com.example.mymoviesmariamay.ui.MediaList
+import com.example.mymoviesmariamay.ui.theme.MainScreen
+import com.example.mymoviesmariamay.ui.theme.MyMoviesMariaMayApp
 
 class MainActivity : ComponentActivity() {
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyMoviesMariaMayTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Scaffold(
-                        topBar={
-                            TopAppBar(
-                                title={Text(text=stringResource(id=R.string.app_name))},
-                                actions={
-                                    IconButton(onClick={/*TODO*/}){
-                                        Icon(
-                                            imageVector=Icons.Default.Search,
-                                            contentDescription=null
-                                        )
-                                    }
-                                    IconButton(onClick={/*TODO*/}){
-                                        Icon(
-                                            imageVector=Icons.Default.Share,
-                                            contentDescription=null
-                                        )
-                                    }
-                                }
-                                //para el menu lo de hamburguesa
-                                /*navigationIcon={
-                                        IconButton(onClick={/*TODO*/}){
-                                            Icon(
-                                                imageVector=Icons.Default.Menu,
-                                                contentDescription=null
-                                            )
-                                        }
-
-                                }*/
-                            )
-                        }
-                    ){padding ->
-                      MediaList(modifier=Modifier.padding(padding))
-                    }
+            MyMoviesMariaMayApp {
+                    MainScreen()
                    /* val (value,onValueChange)= rememberSaveable{ mutableStateOf("")}
                     StateSample(
                         value= value,
@@ -85,8 +52,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
+
+
+
+
 }
+
 //sirve para centrar el layout en la pantalla
 //@Preview(showBackground = true, widthDp = 400, heightDp = 400)
 /*@Composable
@@ -119,81 +90,7 @@ fun StateSample(value:String, onValueChange:(String) -> Unit){
         }
     }
 }*/
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
-//@Preview
-@Composable
-fun MediaList(modifier:Modifier=Modifier){
-    //lista Horizontal pelis
-    LazyVerticalGrid(
-        contentPadding=PaddingValues(2.dp),
-        cells= GridCells.Adaptive(150.dp),
-        modifier=Modifier
-        //cells= GridCells.Fixed(2)
-    ){
-        items(getMedia()) {item ->
-            MediaListItem(item, Modifier.padding(2.dp))
-        }
-    }
-}
-@ExperimentalCoilApi
-//@Preview(showBackground = true)
-@Composable
-fun MediaListItem(item: MediaItem, modifier:Modifier = Modifier){
-    Column(
-        modifier=modifier
-    ){
 
-    //(
-        //para una fila,como peliculas
-       // modifier=Modifier.width(200.dp)
-    //){
-                //en este box iran las dos imagenes
-        Box(
-            modifier= Modifier
-                .height(200.dp)
-                .fillMaxWidth(),
-           // contentAlignment= Alignment.Center
-                //.background(color = Color.Red)
-        ){
-        Image(
-            painter=rememberImagePainter(
-                data=item.thumb
-            //builder={
-                //transformations(BlurTransformation(LocalContext.current))
-            //crossfade(true)
-
-        ),
-            contentDescription= null,
-            modifier=Modifier.fillMaxSize(),
-            contentScale= ContentScale.Crop
-        )
-            if(item.type == Type.VIDEO) {
-                Icon(
-                    imageVector = Icons.Default.PlayCircleOutline,
-                    contentDescription = null,
-                    modifier = Modifier.size(92.dp).align(Alignment.Center),
-                    tint = Color.White
-                )
-                //Icon(painter=painterResource(id=R.drawable.ic_launcher_foreground))
-            }
-        }
-        Box(
-            contentAlignment=Alignment.Center,
-            modifier=Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.secondary)
-                .padding(16.dp)
-        ){
-            Text(text=item.title,
-                style=MaterialTheme.typography.h6
-
-            )
-        }
-
-    }
-
-}
 @Composable
 fun Greeting(name: String,modifier:Modifier = Modifier) {
     Text(text = "Hello $name!",
