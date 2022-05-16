@@ -34,10 +34,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            MyMoviesMariaMayTheme()
             val navController=rememberNavController()
             NavHost(navController =navController,startDestination="main"){
                 composable("main"){
-                    MainScreen(navController)
+                    MainScreen(onNavigate)
                 }
                 composable(route="detail/{mediaId}",
                 arguments=listOf(

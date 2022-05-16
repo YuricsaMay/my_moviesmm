@@ -15,7 +15,7 @@ import com.example.mymoviesmariamay.ui.theme.MyMoviesMariaMayApp
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(onNavigate:(Int)->Unit) {
     MyMoviesMariaMayApp {
         Scaffold(
             topBar = { MainAppBar() }
@@ -29,7 +29,10 @@ fun MainScreen(navController: NavHostController) {
                                     }
                             }*/
         ) { padding ->
-            MediaList(navController, Modifier.padding(padding))
+            MediaList(
+                onClick={onNavigate(it.id)},
+            Modifier.padding(padding)
+            )
         }
     }
 }

@@ -21,12 +21,6 @@ fun MainAppBar(){
                 imageVector=Icons.Default.Search,
                  onclick={/*TODO*/}
             )
-            /*IconButton(onClick={/*TODO*/}){
-                Icon(
-                    imageVector= Icons.Default.Share,
-                    contentDescription=null
-                    )
-                    }*/
             AppBarAction(
                 imageVector=Icons.Default.Share,
                 onclick={/*TODO*/}
@@ -40,12 +34,14 @@ private fun AppBarAction(
     imageVector: ImageVector,
     onclick:() -> Unit
 ) {
-    IconButton(onClick = onclick) {
-        Icon(
-            imageVector = Icons.Default.Search,
-            contentDescription = null
-        )
-    }
-
 
 }
+   // IconButton(onClick = onclick) {
+       // Icon(
+          //  imageVector = Icons.Default.Search,
+            //contentDescription = null
+       // )
+   // }
+
+
+//}
