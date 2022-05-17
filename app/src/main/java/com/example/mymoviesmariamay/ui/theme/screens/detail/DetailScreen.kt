@@ -31,3 +31,6 @@ fun DetailScreen(mediaId: Int) {
         )
     }*/
 }
+
+
+

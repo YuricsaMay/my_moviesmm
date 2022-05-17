@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -32,10 +31,7 @@ import com.example.mymoviesmariamay.ui.theme.screens.common.Thumb
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
-fun MediaList(
-    onClick: (MediaItem)-> Unit,
-    modifier: Modifier = Modifier
-){
+fun MediaList(navController: NavHostController, modifier: Modifier = Modifier){
     //lista Horizontal pelis
     LazyVerticalGrid(
         cells= GridCells.Adaptive(dimensionResource(R.dimen.cell_min_wedith)),
@@ -43,11 +39,11 @@ fun MediaList(
         modifier= Modifier
         //cells= GridCells.Fixed(2)
     ){
-        items(getMedia()) {
+        items(getMedia()) {item->
             MediaListItem(
-                mediaItem = it,
-                onClick={onClick(it)},
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_xsmall))
+                item  =item,
+                navController,
+                modifier =Modifier.padding(dimensionResource(R.dimen.padding_xsmall))
             )
 
         }
@@ -57,27 +53,23 @@ fun MediaList(
 //@Preview(showBackground = true)
 @Composable
 fun MediaListItem(
-    mediaItem: MediaItem,
-    //navController: NavHostController,
-    onClick:() ->Unit,
+    item: MediaItem,
+    navController: NavHostController,
+    //onClick:() ->Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
-modifier=modifier.clickable{onClick()},
-        elevation=0.dp,
-        border= BorderStroke(1.dp, Color.LightGray),
-        backgroundColor=MaterialTheme.colors.primary,
-        contentColor=MaterialTheme.colors.secondary
+Card(
+    modifier=modifier.clickable{
+        navController.navigate("detail/${item.id}")},
+    elevation=0.dp,
+    border= BorderStroke(1.dp, Color.LightGray)
+){
+    Column{
 
-        //shape= RoundedCornerShape(4.dp)
-    ){
-        Column{
-            //modifier = modifier.clickable{onClick()}
-            Thumb(mediaItem)
-            Title(mediaItem)
-        }
+        Thumb(item)
+        Title(item)
     }
-
+}
 }
 
         //(
@@ -92,7 +84,7 @@ modifier=modifier.clickable{onClick()},
             contentAlignment= Alignment.Center,
             modifier= Modifier
                 .fillMaxWidth()
-                //.background(MaterialTheme.colors.secondary)
+                .background(MaterialTheme.colors.secondary)
                 .padding(dimensionResource(R.dimen.padding_medium))
         ){
             Text(
@@ -115,3 +107,5 @@ fun MediaListItemPreview(){
                 //MediaListItem(mediaItem=mediaItem, navController=)
             }
 }
+
+

@@ -53,3 +53,5 @@ fun Thumb(mediaItem: MediaItem, modifier: Modifier =Modifier){
 }
 
 
+
+

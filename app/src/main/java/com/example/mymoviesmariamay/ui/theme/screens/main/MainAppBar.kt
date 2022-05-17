@@ -13,18 +13,19 @@ import androidx.compose.ui.res.stringResource
 import com.example.mymoviesmariamay.R
 
 @Composable
-fun MainAppBar(){
+fun MainAppBar() {
     TopAppBar(
-        title={ Text(text= stringResource(id= R.string.app_name)) },
-        actions={
-            AppBarAction(
-                imageVector=Icons.Default.Search,
-                 onclick={/*TODO*/}
+        title = {
+            Text(text = stringResource(id = R.string.app_name))
+        },
+        actions = {
+            AppBarAction(imageVector = Icons.Default.Search,
+                onClick = {/*TODO*/ }
             )
-            AppBarAction(
-                imageVector=Icons.Default.Share,
-                onclick={/*TODO*/}
+            AppBarAction(imageVector = Icons.Default.Share,
+                onClick = {/*TODO*/ }
             )
+
         }
     )
 }
@@ -32,16 +33,19 @@ fun MainAppBar(){
 @Composable
 private fun AppBarAction(
     imageVector: ImageVector,
-    onclick:() -> Unit
+    onClick: () -> Unit
 ) {
-
+    IconButton(onClick = { onClick }) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = null
+        )
+    }
 }
-   // IconButton(onClick = onclick) {
-       // Icon(
-          //  imageVector = Icons.Default.Search,
-            //contentDescription = null
-       // )
-   // }
 
 
-//}
+
+
+
+
+
